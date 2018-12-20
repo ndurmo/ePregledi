@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ePreglediModelStoreContainer" CdmEntityContainer="ePreglediEntities">
+    <EntitySetMapping Name="Alergijas">
+      <EntityTypeMapping TypeName="ePreglediModel.Alergija">
+        <MappingFragment StoreEntitySet="Alergija">
+          <ScalarProperty Name="AlergijaId" ColumnName="AlergijaId" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dijagnozas">
+      <EntityTypeMapping TypeName="ePreglediModel.Dijagnoza">
+        <MappingFragment StoreEntitySet="Dijagnoza">
+          <ScalarProperty Name="DijagnozaId" ColumnName="DijagnozaId" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DijagnozaPregleds">
+      <EntityTypeMapping TypeName="ePreglediModel.DijagnozaPregled">
+        <MappingFragment StoreEntitySet="DijagnozaPregled">
+          <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+          <ScalarProperty Name="DijagnozaId" ColumnName="DijagnozaId" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doktors">
+      <EntityTypeMapping TypeName="ePreglediModel.Doktor">
+        <MappingFragment StoreEntitySet="Doktor">
+          <ScalarProperty Name="DoktorId" ColumnName="DoktorId" />
+          <ScalarProperty Name="DatumZaposlenja" ColumnName="DatumZaposlenja" />
+          <ScalarProperty Name="Specijalizacija" ColumnName="Specijalizacija" />
+          <ScalarProperty Name="DatumSpecijalizacije" ColumnName="DatumSpecijalizacije" />
+          <ScalarProperty Name="Titula" ColumnName="Titula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drzavas">
+      <EntityTypeMapping TypeName="ePreglediModel.Drzava">
+        <MappingFragment StoreEntitySet="Drzava">
+          <ScalarProperty Name="DrzavaId" ColumnName="DrzavaId" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grads">
+      <EntityTypeMapping TypeName="ePreglediModel.Grad">
+        <MappingFragment StoreEntitySet="Grad">
+          <ScalarProperty Name="GradId" ColumnName="GradId" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KrvnaGrupas">
+      <EntityTypeMapping TypeName="ePreglediModel.KrvnaGrupa">
+        <MappingFragment StoreEntitySet="KrvnaGrupa">
+          <ScalarProperty Name="KrvnaGrupaId" ColumnName="KrvnaGrupaId" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lijeks">
+      <EntityTypeMapping TypeName="ePreglediModel.Lijek">
+        <MappingFragment StoreEntitySet="Lijek">
+          <ScalarProperty Name="LijekId" ColumnName="LijekId" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoginPodacis">
+      <EntityTypeMapping TypeName="ePreglediModel.LoginPodaci">
+        <MappingFragment StoreEntitySet="LoginPodaci">
+          <ScalarProperty Name="LoginPodaciId" ColumnName="LoginPodaciId" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Osobas">
+      <EntityTypeMapping TypeName="ePreglediModel.Osoba">
+        <MappingFragment StoreEntitySet="Osoba">
+          <ScalarProperty Name="OsobaId" ColumnName="OsobaId" />
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="DatumRodjenja" ColumnName="DatumRodjenja" />
+          <ScalarProperty Name="Spol" ColumnName="Spol" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="BrojTelefona" ColumnName="BrojTelefona" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+          <ScalarProperty Name="GradId" ColumnName="GradId" />
+          <ScalarProperty Name="DrzavaId" ColumnName="DrzavaId" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="Slika" ColumnName="Slika" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pacijents">
+      <EntityTypeMapping TypeName="ePreglediModel.Pacijent">
+        <MappingFragment StoreEntitySet="Pacijent">
+          <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+          <ScalarProperty Name="KrvnaGrupaID" ColumnName="KrvnaGrupaID" />
+          <ScalarProperty Name="BrojKnjizice" ColumnName="BrojKnjizice" />
+          <ScalarProperty Name="BrojKartona" ColumnName="BrojKartona" />
+          <ScalarProperty Name="Visina" ColumnName="Visina" />
+          <ScalarProperty Name="Tezina" ColumnName="Tezina" />
+          <ScalarProperty Name="SpecijalniZahtjevi" ColumnName="SpecijalniZahtjevi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pregleds">
+      <EntityTypeMapping TypeName="ePreglediModel.Pregled">
+        <MappingFragment StoreEntitySet="Pregled">
+          <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+          <ScalarProperty Name="DatumRezervisanja" ColumnName="DatumRezervisanja" />
+          <ScalarProperty Name="DatumPregleda" ColumnName="DatumPregleda" />
+          <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+          <ScalarProperty Name="DoktorId" ColumnName="DoktorId" />
+          <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LijekPregleds">
+      <EntityTypeMapping TypeName="ePreglediModel.LijekPregled">
+        <MappingFragment StoreEntitySet="LijekPregled">
+          <ScalarProperty Name="LijekId" ColumnName="LijekId" />
+          <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+          <ScalarProperty Name="Uputstvo" ColumnName="Uputstvo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PacijentAlerigja" TypeName="ePreglediModel.PacijentAlerigja" StoreEntitySet="PacijentAlerigja">
+      <EndProperty Name="Alergija">
+        <ScalarProperty Name="AlergijaId" ColumnName="AlergijaId" />
+      </EndProperty>
+      <EndProperty Name="Pacijent">
+        <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

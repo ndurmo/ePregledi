@@ -1,0 +1,917 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ePreglediModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alergija">
+          <Key>
+            <PropertyRef Name="AlergijaId" />
+          </Key>
+          <Property Name="AlergijaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Dijagnoza">
+          <Key>
+            <PropertyRef Name="DijagnozaId" />
+          </Key>
+          <Property Name="DijagnozaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="DijagnozaPregled">
+          <Key>
+            <PropertyRef Name="PregledId" />
+            <PropertyRef Name="DijagnozaId" />
+          </Key>
+          <Property Name="PregledId" Type="int" Nullable="false" />
+          <Property Name="DijagnozaId" Type="int" Nullable="false" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Doktor">
+          <Key>
+            <PropertyRef Name="DoktorId" />
+          </Key>
+          <Property Name="DoktorId" Type="int" Nullable="false" />
+          <Property Name="DatumZaposlenja" Type="date" Nullable="false" />
+          <Property Name="Specijalizacija" Type="nvarchar" MaxLength="60" />
+          <Property Name="DatumSpecijalizacije" Type="date" />
+          <Property Name="Titula" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Drzava">
+          <Key>
+            <PropertyRef Name="DrzavaId" />
+          </Key>
+          <Property Name="DrzavaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="GradId" />
+          </Key>
+          <Property Name="GradId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="KrvnaGrupa">
+          <Key>
+            <PropertyRef Name="KrvnaGrupaId" />
+          </Key>
+          <Property Name="KrvnaGrupaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Lijek">
+          <Key>
+            <PropertyRef Name="LijekId" />
+          </Key>
+          <Property Name="LijekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ePregledi.dbo.LijekPregled' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LijekPregled">
+          <Key>
+            <PropertyRef Name="LijekId" />
+            <PropertyRef Name="PregledId" />
+            <PropertyRef Name="Uputstvo" />
+          </Key>
+          <Property Name="LijekId" Type="int" Nullable="false" />
+          <Property Name="PregledId" Type="int" Nullable="false" />
+          <Property Name="Uputstvo" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginPodaci">
+          <Key>
+            <PropertyRef Name="LoginPodaciId" />
+          </Key>
+          <Property Name="LoginPodaciId" Type="int" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Osoba">
+          <Key>
+            <PropertyRef Name="OsobaId" />
+          </Key>
+          <Property Name="OsobaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JMBG" Type="nvarchar" MaxLength="13" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="20" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="20" />
+          <Property Name="DatumRodjenja" Type="date" />
+          <Property Name="Spol" Type="nvarchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="BrojTelefona" Type="nvarchar" MaxLength="20" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="GradId" Type="int" />
+          <Property Name="DrzavaId" Type="int" />
+          <Property Name="Token" Type="nvarchar" MaxLength="32" />
+          <Property Name="Slika" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pacijent">
+          <Key>
+            <PropertyRef Name="PacijentId" />
+          </Key>
+          <Property Name="PacijentId" Type="int" Nullable="false" />
+          <Property Name="KrvnaGrupaID" Type="int" />
+          <Property Name="BrojKnjizice" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="BrojKartona" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Visina" Type="nvarchar" MaxLength="20" />
+          <Property Name="Tezina" Type="nvarchar" MaxLength="20" />
+          <Property Name="SpecijalniZahtjevi" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PacijentAlerigja">
+          <Key>
+            <PropertyRef Name="PacijentId" />
+            <PropertyRef Name="AlergijaId" />
+          </Key>
+          <Property Name="PacijentId" Type="int" Nullable="false" />
+          <Property Name="AlergijaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pregled">
+          <Key>
+            <PropertyRef Name="PregledId" />
+          </Key>
+          <Property Name="PregledId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatumRezervisanja" Type="date" Nullable="false" />
+          <Property Name="DatumPregleda" Type="date" Nullable="false" />
+          <Property Name="PacijentId" Type="int" Nullable="false" />
+          <Property Name="DoktorId" Type="int" Nullable="false" />
+          <Property Name="Napomena" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK__Dijagnoza__Dijag__59063A47">
+          <End Role="Dijagnoza" Type="Self.Dijagnoza" Multiplicity="1" />
+          <End Role="DijagnozaPregled" Type="Self.DijagnozaPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dijagnoza">
+              <PropertyRef Name="DijagnozaId" />
+            </Principal>
+            <Dependent Role="DijagnozaPregled">
+              <PropertyRef Name="DijagnozaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dijagnoza__Pregl__5812160E">
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="1" />
+          <End Role="DijagnozaPregled" Type="Self.DijagnozaPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregled">
+              <PropertyRef Name="PregledId" />
+            </Principal>
+            <Dependent Role="DijagnozaPregled">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doktor__DoktorId__47DBAE45">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Doktor" Type="Self.Doktor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="OsobaId" />
+            </Principal>
+            <Dependent Role="Doktor">
+              <PropertyRef Name="DoktorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LijekPreg__Lijek__5AEE82B9">
+          <End Role="Lijek" Type="Self.Lijek" Multiplicity="1" />
+          <End Role="LijekPregled" Type="Self.LijekPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lijek">
+              <PropertyRef Name="LijekId" />
+            </Principal>
+            <Dependent Role="LijekPregled">
+              <PropertyRef Name="LijekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LijekPreg__Pregl__5BE2A6F2">
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="1" />
+          <End Role="LijekPregled" Type="Self.LijekPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregled">
+              <PropertyRef Name="PregledId" />
+            </Principal>
+            <Dependent Role="LijekPregled">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LoginPoda__Login__3F466844">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="LoginPodaci" Type="Self.LoginPodaci" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="OsobaId" />
+            </Principal>
+            <Dependent Role="LoginPodaci">
+              <PropertyRef Name="LoginPodaciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Osoba__DrzavaId__3C69FB99">
+          <End Role="Drzava" Type="Self.Drzava" Multiplicity="0..1" />
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drzava">
+              <PropertyRef Name="DrzavaId" />
+            </Principal>
+            <Dependent Role="Osoba">
+              <PropertyRef Name="DrzavaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Osoba__GradId__3B75D760">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="0..1" />
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="GradId" />
+            </Principal>
+            <Dependent Role="Osoba">
+              <PropertyRef Name="GradId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pacijent__KrvnaG__44FF419A">
+          <End Role="KrvnaGrupa" Type="Self.KrvnaGrupa" Multiplicity="0..1" />
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KrvnaGrupa">
+              <PropertyRef Name="KrvnaGrupaId" />
+            </Principal>
+            <Dependent Role="Pacijent">
+              <PropertyRef Name="KrvnaGrupaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pacijent__Pacije__440B1D61">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="OsobaId" />
+            </Principal>
+            <Dependent Role="Pacijent">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PacijentA__Alerg__4D94879B">
+          <End Role="Alergija" Type="Self.Alergija" Multiplicity="1" />
+          <End Role="PacijentAlerigja" Type="Self.PacijentAlerigja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alergija">
+              <PropertyRef Name="AlergijaId" />
+            </Principal>
+            <Dependent Role="PacijentAlerigja">
+              <PropertyRef Name="AlergijaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PacijentA__Pacij__4CA06362">
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="1" />
+          <End Role="PacijentAlerigja" Type="Self.PacijentAlerigja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijent">
+              <PropertyRef Name="PacijentId" />
+            </Principal>
+            <Dependent Role="PacijentAlerigja">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pregled__DoktorI__5535A963">
+          <End Role="Doktor" Type="Self.Doktor" Multiplicity="1" />
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doktor">
+              <PropertyRef Name="DoktorId" />
+            </Principal>
+            <Dependent Role="Pregled">
+              <PropertyRef Name="DoktorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pregled__Pacijen__5441852A">
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="1" />
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijent">
+              <PropertyRef Name="PacijentId" />
+            </Principal>
+            <Dependent Role="Pregled">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ePreglediModelStoreContainer">
+          <EntitySet Name="Alergija" EntityType="Self.Alergija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dijagnoza" EntityType="Self.Dijagnoza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DijagnozaPregled" EntityType="Self.DijagnozaPregled" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doktor" EntityType="Self.Doktor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drzava" EntityType="Self.Drzava" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grad" EntityType="Self.Grad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KrvnaGrupa" EntityType="Self.KrvnaGrupa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lijek" EntityType="Self.Lijek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginPodaci" EntityType="Self.LoginPodaci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Osoba" EntityType="Self.Osoba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pacijent" EntityType="Self.Pacijent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PacijentAlerigja" EntityType="Self.PacijentAlerigja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pregled" EntityType="Self.Pregled" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LijekPregled" EntityType="Self.LijekPregled" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LijekPregled].[LijekId] AS [LijekId], 
+    [LijekPregled].[PregledId] AS [PregledId], 
+    [LijekPregled].[Uputstvo] AS [Uputstvo]
+    FROM [dbo].[LijekPregled] AS [LijekPregled]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Dijagnoza__Dijag__59063A47" Association="Self.FK__Dijagnoza__Dijag__59063A47">
+            <End Role="Dijagnoza" EntitySet="Dijagnoza" />
+            <End Role="DijagnozaPregled" EntitySet="DijagnozaPregled" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dijagnoza__Pregl__5812160E" Association="Self.FK__Dijagnoza__Pregl__5812160E">
+            <End Role="Pregled" EntitySet="Pregled" />
+            <End Role="DijagnozaPregled" EntitySet="DijagnozaPregled" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doktor__DoktorId__47DBAE45" Association="Self.FK__Doktor__DoktorId__47DBAE45">
+            <End Role="Osoba" EntitySet="Osoba" />
+            <End Role="Doktor" EntitySet="Doktor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LijekPreg__Lijek__5AEE82B9" Association="Self.FK__LijekPreg__Lijek__5AEE82B9">
+            <End Role="Lijek" EntitySet="Lijek" />
+            <End Role="LijekPregled" EntitySet="LijekPregled" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LijekPreg__Pregl__5BE2A6F2" Association="Self.FK__LijekPreg__Pregl__5BE2A6F2">
+            <End Role="Pregled" EntitySet="Pregled" />
+            <End Role="LijekPregled" EntitySet="LijekPregled" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoginPoda__Login__3F466844" Association="Self.FK__LoginPoda__Login__3F466844">
+            <End Role="Osoba" EntitySet="Osoba" />
+            <End Role="LoginPodaci" EntitySet="LoginPodaci" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Osoba__DrzavaId__3C69FB99" Association="Self.FK__Osoba__DrzavaId__3C69FB99">
+            <End Role="Drzava" EntitySet="Drzava" />
+            <End Role="Osoba" EntitySet="Osoba" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Osoba__GradId__3B75D760" Association="Self.FK__Osoba__GradId__3B75D760">
+            <End Role="Grad" EntitySet="Grad" />
+            <End Role="Osoba" EntitySet="Osoba" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pacijent__KrvnaG__44FF419A" Association="Self.FK__Pacijent__KrvnaG__44FF419A">
+            <End Role="KrvnaGrupa" EntitySet="KrvnaGrupa" />
+            <End Role="Pacijent" EntitySet="Pacijent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pacijent__Pacije__440B1D61" Association="Self.FK__Pacijent__Pacije__440B1D61">
+            <End Role="Osoba" EntitySet="Osoba" />
+            <End Role="Pacijent" EntitySet="Pacijent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PacijentA__Alerg__4D94879B" Association="Self.FK__PacijentA__Alerg__4D94879B">
+            <End Role="Alergija" EntitySet="Alergija" />
+            <End Role="PacijentAlerigja" EntitySet="PacijentAlerigja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PacijentA__Pacij__4CA06362" Association="Self.FK__PacijentA__Pacij__4CA06362">
+            <End Role="Pacijent" EntitySet="Pacijent" />
+            <End Role="PacijentAlerigja" EntitySet="PacijentAlerigja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pregled__DoktorI__5535A963" Association="Self.FK__Pregled__DoktorI__5535A963">
+            <End Role="Doktor" EntitySet="Doktor" />
+            <End Role="Pregled" EntitySet="Pregled" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pregled__Pacijen__5441852A" Association="Self.FK__Pregled__Pacijen__5441852A">
+            <End Role="Pacijent" EntitySet="Pacijent" />
+            <End Role="Pregled" EntitySet="Pregled" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ePreglediModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alergija">
+          <Key>
+            <PropertyRef Name="AlergijaId" />
+          </Key>
+          <Property Name="AlergijaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pacijents" Relationship="Self.PacijentAlerigja" FromRole="Alergija" ToRole="Pacijent" />
+        </EntityType>
+        <EntityType Name="Dijagnoza">
+          <Key>
+            <PropertyRef Name="DijagnozaId" />
+          </Key>
+          <Property Name="DijagnozaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DijagnozaPregleds" Relationship="Self.FK__Dijagnoza__Dijag__59063A47" FromRole="Dijagnoza" ToRole="DijagnozaPregled" />
+        </EntityType>
+        <EntityType Name="DijagnozaPregled">
+          <Key>
+            <PropertyRef Name="PregledId" />
+            <PropertyRef Name="DijagnozaId" />
+          </Key>
+          <Property Name="PregledId" Type="Int32" Nullable="false" />
+          <Property Name="DijagnozaId" Type="Int32" Nullable="false" />
+          <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dijagnoza" Relationship="Self.FK__Dijagnoza__Dijag__59063A47" FromRole="DijagnozaPregled" ToRole="Dijagnoza" />
+          <NavigationProperty Name="Pregled" Relationship="Self.FK__Dijagnoza__Pregl__5812160E" FromRole="DijagnozaPregled" ToRole="Pregled" />
+        </EntityType>
+        <EntityType Name="Doktor">
+          <Key>
+            <PropertyRef Name="DoktorId" />
+          </Key>
+          <Property Name="DoktorId" Type="Int32" Nullable="false" />
+          <Property Name="DatumZaposlenja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Specijalizacija" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="DatumSpecijalizacije" Type="DateTime" Precision="0" />
+          <Property Name="Titula" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Osoba" Relationship="Self.FK__Doktor__DoktorId__47DBAE45" FromRole="Doktor" ToRole="Osoba" />
+          <NavigationProperty Name="Pregleds" Relationship="Self.FK__Pregled__DoktorI__5535A963" FromRole="Doktor" ToRole="Pregled" />
+        </EntityType>
+        <EntityType Name="Drzava">
+          <Key>
+            <PropertyRef Name="DrzavaId" />
+          </Key>
+          <Property Name="DrzavaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Osobas" Relationship="Self.FK__Osoba__DrzavaId__3C69FB99" FromRole="Drzava" ToRole="Osoba" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="GradId" />
+          </Key>
+          <Property Name="GradId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Osobas" Relationship="Self.FK__Osoba__GradId__3B75D760" FromRole="Grad" ToRole="Osoba" />
+        </EntityType>
+        <EntityType Name="KrvnaGrupa">
+          <Key>
+            <PropertyRef Name="KrvnaGrupaId" />
+          </Key>
+          <Property Name="KrvnaGrupaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pacijents" Relationship="Self.FK__Pacijent__KrvnaG__44FF419A" FromRole="KrvnaGrupa" ToRole="Pacijent" />
+        </EntityType>
+        <EntityType Name="Lijek">
+          <Key>
+            <PropertyRef Name="LijekId" />
+          </Key>
+          <Property Name="LijekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LijekPregleds" Relationship="Self.FK__LijekPreg__Lijek__5AEE82B9" FromRole="Lijek" ToRole="LijekPregled" />
+        </EntityType>
+        <EntityType Name="LoginPodaci">
+          <Key>
+            <PropertyRef Name="LoginPodaciId" />
+          </Key>
+          <Property Name="LoginPodaciId" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Osoba" Relationship="Self.FK__LoginPoda__Login__3F466844" FromRole="LoginPodaci" ToRole="Osoba" />
+        </EntityType>
+        <EntityType Name="Osoba">
+          <Key>
+            <PropertyRef Name="OsobaId" />
+          </Key>
+          <Property Name="OsobaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JMBG" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="Ime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DatumRodjenja" Type="DateTime" Precision="0" />
+          <Property Name="Spol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BrojTelefona" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Adresa" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GradId" Type="Int32" />
+          <Property Name="DrzavaId" Type="Int32" />
+          <Property Name="Token" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Slika" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Doktor" Relationship="Self.FK__Doktor__DoktorId__47DBAE45" FromRole="Osoba" ToRole="Doktor" />
+          <NavigationProperty Name="Drzava" Relationship="Self.FK__Osoba__DrzavaId__3C69FB99" FromRole="Osoba" ToRole="Drzava" />
+          <NavigationProperty Name="Grad" Relationship="Self.FK__Osoba__GradId__3B75D760" FromRole="Osoba" ToRole="Grad" />
+          <NavigationProperty Name="LoginPodaci" Relationship="Self.FK__LoginPoda__Login__3F466844" FromRole="Osoba" ToRole="LoginPodaci" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK__Pacijent__Pacije__440B1D61" FromRole="Osoba" ToRole="Pacijent" />
+        </EntityType>
+        <EntityType Name="Pacijent">
+          <Key>
+            <PropertyRef Name="PacijentId" />
+          </Key>
+          <Property Name="PacijentId" Type="Int32" Nullable="false" />
+          <Property Name="KrvnaGrupaID" Type="Int32" />
+          <Property Name="BrojKnjizice" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrojKartona" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Visina" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Tezina" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SpecijalniZahtjevi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KrvnaGrupa" Relationship="Self.FK__Pacijent__KrvnaG__44FF419A" FromRole="Pacijent" ToRole="KrvnaGrupa" />
+          <NavigationProperty Name="Osoba" Relationship="Self.FK__Pacijent__Pacije__440B1D61" FromRole="Pacijent" ToRole="Osoba" />
+          <NavigationProperty Name="Pregleds" Relationship="Self.FK__Pregled__Pacijen__5441852A" FromRole="Pacijent" ToRole="Pregled" />
+          <NavigationProperty Name="Alergijas" Relationship="Self.PacijentAlerigja" FromRole="Pacijent" ToRole="Alergija" />
+        </EntityType>
+        <EntityType Name="Pregled">
+          <Key>
+            <PropertyRef Name="PregledId" />
+          </Key>
+          <Property Name="PregledId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatumRezervisanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatumPregleda" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PacijentId" Type="Int32" Nullable="false" />
+          <Property Name="DoktorId" Type="Int32" Nullable="false" />
+          <Property Name="Napomena" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DijagnozaPregleds" Relationship="Self.FK__Dijagnoza__Pregl__5812160E" FromRole="Pregled" ToRole="DijagnozaPregled" />
+          <NavigationProperty Name="Doktor" Relationship="Self.FK__Pregled__DoktorI__5535A963" FromRole="Pregled" ToRole="Doktor" />
+          <NavigationProperty Name="Pacijent" Relationship="Self.FK__Pregled__Pacijen__5441852A" FromRole="Pregled" ToRole="Pacijent" />
+          <NavigationProperty Name="LijekPregleds" Relationship="Self.FK__LijekPreg__Pregl__5BE2A6F2" FromRole="Pregled" ToRole="LijekPregled" />
+        </EntityType>
+        <EntityType Name="LijekPregled">
+          <Key>
+            <PropertyRef Name="LijekId" />
+            <PropertyRef Name="PregledId" />
+            <PropertyRef Name="Uputstvo" />
+          </Key>
+          <Property Name="LijekId" Type="Int32" Nullable="false" />
+          <Property Name="PregledId" Type="Int32" Nullable="false" />
+          <Property Name="Uputstvo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Lijek" Relationship="Self.FK__LijekPreg__Lijek__5AEE82B9" FromRole="LijekPregled" ToRole="Lijek" />
+          <NavigationProperty Name="Pregled" Relationship="Self.FK__LijekPreg__Pregl__5BE2A6F2" FromRole="LijekPregled" ToRole="Pregled" />
+        </EntityType>
+        <Association Name="FK__Dijagnoza__Dijag__59063A47">
+          <End Role="Dijagnoza" Type="Self.Dijagnoza" Multiplicity="1" />
+          <End Role="DijagnozaPregled" Type="Self.DijagnozaPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dijagnoza">
+              <PropertyRef Name="DijagnozaId" />
+            </Principal>
+            <Dependent Role="DijagnozaPregled">
+              <PropertyRef Name="DijagnozaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dijagnoza__Pregl__5812160E">
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="1" />
+          <End Role="DijagnozaPregled" Type="Self.DijagnozaPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregled">
+              <PropertyRef Name="PregledId" />
+            </Principal>
+            <Dependent Role="DijagnozaPregled">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doktor__DoktorId__47DBAE45">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Doktor" Type="Self.Doktor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="OsobaId" />
+            </Principal>
+            <Dependent Role="Doktor">
+              <PropertyRef Name="DoktorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pregled__DoktorI__5535A963">
+          <End Role="Doktor" Type="Self.Doktor" Multiplicity="1" />
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doktor">
+              <PropertyRef Name="DoktorId" />
+            </Principal>
+            <Dependent Role="Pregled">
+              <PropertyRef Name="DoktorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Osoba__DrzavaId__3C69FB99">
+          <End Role="Drzava" Type="Self.Drzava" Multiplicity="0..1" />
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drzava">
+              <PropertyRef Name="DrzavaId" />
+            </Principal>
+            <Dependent Role="Osoba">
+              <PropertyRef Name="DrzavaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Osoba__GradId__3B75D760">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="0..1" />
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="GradId" />
+            </Principal>
+            <Dependent Role="Osoba">
+              <PropertyRef Name="GradId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pacijent__KrvnaG__44FF419A">
+          <End Role="KrvnaGrupa" Type="Self.KrvnaGrupa" Multiplicity="0..1" />
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KrvnaGrupa">
+              <PropertyRef Name="KrvnaGrupaId" />
+            </Principal>
+            <Dependent Role="Pacijent">
+              <PropertyRef Name="KrvnaGrupaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LijekPreg__Lijek__5AEE82B9">
+          <End Role="Lijek" Type="Self.Lijek" Multiplicity="1" />
+          <End Role="LijekPregled" Type="Self.LijekPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lijek">
+              <PropertyRef Name="LijekId" />
+            </Principal>
+            <Dependent Role="LijekPregled">
+              <PropertyRef Name="LijekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LoginPoda__Login__3F466844">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="LoginPodaci" Type="Self.LoginPodaci" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="OsobaId" />
+            </Principal>
+            <Dependent Role="LoginPodaci">
+              <PropertyRef Name="LoginPodaciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pacijent__Pacije__440B1D61">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="OsobaId" />
+            </Principal>
+            <Dependent Role="Pacijent">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pregled__Pacijen__5441852A">
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="1" />
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacijent">
+              <PropertyRef Name="PacijentId" />
+            </Principal>
+            <Dependent Role="Pregled">
+              <PropertyRef Name="PacijentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LijekPreg__Pregl__5BE2A6F2">
+          <End Role="Pregled" Type="Self.Pregled" Multiplicity="1" />
+          <End Role="LijekPregled" Type="Self.LijekPregled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregled">
+              <PropertyRef Name="PregledId" />
+            </Principal>
+            <Dependent Role="LijekPregled">
+              <PropertyRef Name="PregledId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PacijentAlerigja">
+          <End Role="Alergija" Type="Self.Alergija" Multiplicity="*" />
+          <End Role="Pacijent" Type="Self.Pacijent" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ePreglediEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alergijas" EntityType="Self.Alergija" />
+          <EntitySet Name="Dijagnozas" EntityType="Self.Dijagnoza" />
+          <EntitySet Name="DijagnozaPregleds" EntityType="Self.DijagnozaPregled" />
+          <EntitySet Name="Doktors" EntityType="Self.Doktor" />
+          <EntitySet Name="Drzavas" EntityType="Self.Drzava" />
+          <EntitySet Name="Grads" EntityType="Self.Grad" />
+          <EntitySet Name="KrvnaGrupas" EntityType="Self.KrvnaGrupa" />
+          <EntitySet Name="Lijeks" EntityType="Self.Lijek" />
+          <EntitySet Name="LoginPodacis" EntityType="Self.LoginPodaci" />
+          <EntitySet Name="Osobas" EntityType="Self.Osoba" />
+          <EntitySet Name="Pacijents" EntityType="Self.Pacijent" />
+          <EntitySet Name="Pregleds" EntityType="Self.Pregled" />
+          <EntitySet Name="LijekPregleds" EntityType="Self.LijekPregled" />
+          <AssociationSet Name="FK__Dijagnoza__Dijag__59063A47" Association="Self.FK__Dijagnoza__Dijag__59063A47">
+            <End Role="Dijagnoza" EntitySet="Dijagnozas" />
+            <End Role="DijagnozaPregled" EntitySet="DijagnozaPregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dijagnoza__Pregl__5812160E" Association="Self.FK__Dijagnoza__Pregl__5812160E">
+            <End Role="Pregled" EntitySet="Pregleds" />
+            <End Role="DijagnozaPregled" EntitySet="DijagnozaPregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doktor__DoktorId__47DBAE45" Association="Self.FK__Doktor__DoktorId__47DBAE45">
+            <End Role="Osoba" EntitySet="Osobas" />
+            <End Role="Doktor" EntitySet="Doktors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pregled__DoktorI__5535A963" Association="Self.FK__Pregled__DoktorI__5535A963">
+            <End Role="Doktor" EntitySet="Doktors" />
+            <End Role="Pregled" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Osoba__DrzavaId__3C69FB99" Association="Self.FK__Osoba__DrzavaId__3C69FB99">
+            <End Role="Drzava" EntitySet="Drzavas" />
+            <End Role="Osoba" EntitySet="Osobas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Osoba__GradId__3B75D760" Association="Self.FK__Osoba__GradId__3B75D760">
+            <End Role="Grad" EntitySet="Grads" />
+            <End Role="Osoba" EntitySet="Osobas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pacijent__KrvnaG__44FF419A" Association="Self.FK__Pacijent__KrvnaG__44FF419A">
+            <End Role="KrvnaGrupa" EntitySet="KrvnaGrupas" />
+            <End Role="Pacijent" EntitySet="Pacijents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LijekPreg__Lijek__5AEE82B9" Association="Self.FK__LijekPreg__Lijek__5AEE82B9">
+            <End Role="Lijek" EntitySet="Lijeks" />
+            <End Role="LijekPregled" EntitySet="LijekPregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoginPoda__Login__3F466844" Association="Self.FK__LoginPoda__Login__3F466844">
+            <End Role="Osoba" EntitySet="Osobas" />
+            <End Role="LoginPodaci" EntitySet="LoginPodacis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pacijent__Pacije__440B1D61" Association="Self.FK__Pacijent__Pacije__440B1D61">
+            <End Role="Osoba" EntitySet="Osobas" />
+            <End Role="Pacijent" EntitySet="Pacijents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pregled__Pacijen__5441852A" Association="Self.FK__Pregled__Pacijen__5441852A">
+            <End Role="Pacijent" EntitySet="Pacijents" />
+            <End Role="Pregled" EntitySet="Pregleds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LijekPreg__Pregl__5BE2A6F2" Association="Self.FK__LijekPreg__Pregl__5BE2A6F2">
+            <End Role="Pregled" EntitySet="Pregleds" />
+            <End Role="LijekPregled" EntitySet="LijekPregleds" />
+          </AssociationSet>
+          <AssociationSet Name="PacijentAlerigja" Association="Self.PacijentAlerigja">
+            <End Role="Alergija" EntitySet="Alergijas" />
+            <End Role="Pacijent" EntitySet="Pacijents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ePreglediModelStoreContainer" CdmEntityContainer="ePreglediEntities">
+          <EntitySetMapping Name="Alergijas">
+            <EntityTypeMapping TypeName="ePreglediModel.Alergija">
+              <MappingFragment StoreEntitySet="Alergija">
+                <ScalarProperty Name="AlergijaId" ColumnName="AlergijaId" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dijagnozas">
+            <EntityTypeMapping TypeName="ePreglediModel.Dijagnoza">
+              <MappingFragment StoreEntitySet="Dijagnoza">
+                <ScalarProperty Name="DijagnozaId" ColumnName="DijagnozaId" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DijagnozaPregleds">
+            <EntityTypeMapping TypeName="ePreglediModel.DijagnozaPregled">
+              <MappingFragment StoreEntitySet="DijagnozaPregled">
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+                <ScalarProperty Name="DijagnozaId" ColumnName="DijagnozaId" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doktors">
+            <EntityTypeMapping TypeName="ePreglediModel.Doktor">
+              <MappingFragment StoreEntitySet="Doktor">
+                <ScalarProperty Name="DoktorId" ColumnName="DoktorId" />
+                <ScalarProperty Name="DatumZaposlenja" ColumnName="DatumZaposlenja" />
+                <ScalarProperty Name="Specijalizacija" ColumnName="Specijalizacija" />
+                <ScalarProperty Name="DatumSpecijalizacije" ColumnName="DatumSpecijalizacije" />
+                <ScalarProperty Name="Titula" ColumnName="Titula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drzavas">
+            <EntityTypeMapping TypeName="ePreglediModel.Drzava">
+              <MappingFragment StoreEntitySet="Drzava">
+                <ScalarProperty Name="DrzavaId" ColumnName="DrzavaId" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grads">
+            <EntityTypeMapping TypeName="ePreglediModel.Grad">
+              <MappingFragment StoreEntitySet="Grad">
+                <ScalarProperty Name="GradId" ColumnName="GradId" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KrvnaGrupas">
+            <EntityTypeMapping TypeName="ePreglediModel.KrvnaGrupa">
+              <MappingFragment StoreEntitySet="KrvnaGrupa">
+                <ScalarProperty Name="KrvnaGrupaId" ColumnName="KrvnaGrupaId" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lijeks">
+            <EntityTypeMapping TypeName="ePreglediModel.Lijek">
+              <MappingFragment StoreEntitySet="Lijek">
+                <ScalarProperty Name="LijekId" ColumnName="LijekId" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginPodacis">
+            <EntityTypeMapping TypeName="ePreglediModel.LoginPodaci">
+              <MappingFragment StoreEntitySet="LoginPodaci">
+                <ScalarProperty Name="LoginPodaciId" ColumnName="LoginPodaciId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Osobas">
+            <EntityTypeMapping TypeName="ePreglediModel.Osoba">
+              <MappingFragment StoreEntitySet="Osoba">
+                <ScalarProperty Name="OsobaId" ColumnName="OsobaId" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="DatumRodjenja" ColumnName="DatumRodjenja" />
+                <ScalarProperty Name="Spol" ColumnName="Spol" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="BrojTelefona" ColumnName="BrojTelefona" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="GradId" ColumnName="GradId" />
+                <ScalarProperty Name="DrzavaId" ColumnName="DrzavaId" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacijents">
+            <EntityTypeMapping TypeName="ePreglediModel.Pacijent">
+              <MappingFragment StoreEntitySet="Pacijent">
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+                <ScalarProperty Name="KrvnaGrupaID" ColumnName="KrvnaGrupaID" />
+                <ScalarProperty Name="BrojKnjizice" ColumnName="BrojKnjizice" />
+                <ScalarProperty Name="BrojKartona" ColumnName="BrojKartona" />
+                <ScalarProperty Name="Visina" ColumnName="Visina" />
+                <ScalarProperty Name="Tezina" ColumnName="Tezina" />
+                <ScalarProperty Name="SpecijalniZahtjevi" ColumnName="SpecijalniZahtjevi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pregleds">
+            <EntityTypeMapping TypeName="ePreglediModel.Pregled">
+              <MappingFragment StoreEntitySet="Pregled">
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+                <ScalarProperty Name="DatumRezervisanja" ColumnName="DatumRezervisanja" />
+                <ScalarProperty Name="DatumPregleda" ColumnName="DatumPregleda" />
+                <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+                <ScalarProperty Name="DoktorId" ColumnName="DoktorId" />
+                <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LijekPregleds">
+            <EntityTypeMapping TypeName="ePreglediModel.LijekPregled">
+              <MappingFragment StoreEntitySet="LijekPregled">
+                <ScalarProperty Name="LijekId" ColumnName="LijekId" />
+                <ScalarProperty Name="PregledId" ColumnName="PregledId" />
+                <ScalarProperty Name="Uputstvo" ColumnName="Uputstvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PacijentAlerigja" TypeName="ePreglediModel.PacijentAlerigja" StoreEntitySet="PacijentAlerigja">
+            <EndProperty Name="Alergija">
+              <ScalarProperty Name="AlergijaId" ColumnName="AlergijaId" />
+            </EndProperty>
+            <EndProperty Name="Pacijent">
+              <ScalarProperty Name="PacijentId" ColumnName="PacijentId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
