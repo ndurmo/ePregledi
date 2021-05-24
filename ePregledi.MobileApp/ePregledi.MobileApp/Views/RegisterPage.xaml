@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:ePregledi.MobileApp.ViewModels"
+             mc:Ignorable="d"
+             x:Class="ePregledi.MobileApp.Views.RegisterPage">
+
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel></vm:RegisterViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="CenterAndExpand">
+                <Label  Text="Username" FontSize="Medium"></Label>
+                <Entry  Text="{Binding Username}" HorizontalTextAlignment="Center"></Entry>
+
+                <Label  Text="Email" FontSize="Medium"></Label>
+                <Entry  Text="{Binding Email}" HorizontalTextAlignment="Center"></Entry>
+
+                <Label  Text="Ime" FontSize="Medium"></Label>
+                <Entry  Text="{Binding FirstName}" HorizontalTextAlignment="Center"></Entry>
+
+                <Label  Text="Prezime" FontSize="Medium"></Label>
+                <Entry  Text="{Binding LastName}" HorizontalTextAlignment="Center"></Entry>
+
+                <Image x:Name="image" Source="{Binding ProfilePhoto}"/>
+                <Button Text="Pick Photo"
+            Clicked="OnPickPhotoButtonClicked" />
+
+                <Label  Text="Broj telefona" FontSize="Medium"></Label>
+                <Entry  Text="{Binding PhoneNumber}" HorizontalTextAlignment="Center"></Entry>
+
+                <Label  Text="Datum rodjenja" FontSize="Medium"></Label>
+                <DatePicker Date="{Binding DateOfBirth}"></DatePicker>
+
+                <Label  Text="Gender" FontSize="Medium"></Label>
+                <Picker x:Name="Gender" HorizontalOptions="FillAndExpand" SelectedItem="{Binding Gender}">
+                    <Picker.Items>
+                        <x:String>Male</x:String>
+                        <x:String>Female</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Label  Text="Password" FontSize="Medium"></Label>
+                <Entry  Text="{Binding Password}" IsPassword="True" HorizontalTextAlignment="Center"></Entry>
+
+                <Label  Text="Ponovite password" FontSize="Medium"></Label>
+                <Entry  Text="{Binding PasswordConfirmation}" IsPassword="True" HorizontalTextAlignment="Center"></Entry>
+
+                <Button Command="{Binding RegisterCommand}" HorizontalOptions="FillAndExpand" Text="Registruj se" BackgroundColor="RoyalBlue" TextColor="White" FontSize="Medium"></Button>
+                <Label IsVisible="{Binding IsBusy}" Text="..."></Label>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
