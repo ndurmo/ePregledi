@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ePregledi.WinUI.Forms.Examination
@@ -37,6 +38,7 @@ namespace ePregledi.WinUI.Forms.Examination
             {
                 BtnSave.Visible = false;
                 TxtPdfUploadbox.ReadOnly = true;
+                CmbMedicine.Enabled = false;
 
                 var medicine = await _apiServiceExamination.Get<List<Medicine>>(null, "medicines");
 
@@ -53,6 +55,7 @@ namespace ePregledi.WinUI.Forms.Examination
                 if (APIService.Role == "Doctor")
                 {
                     BtnSave.Visible = true;
+                    CmbMedicine.Enabled = true;
                 }
 
                 TxtFullName.Text = user.FullName;
@@ -78,11 +81,12 @@ namespace ePregledi.WinUI.Forms.Examination
                 linkLabel1.Visible = true;
                 TxtDiagnoseName.Text = ed.Diagnosis.DiagnosisName;
                 TxtDescription.Text = ed.Diagnosis.Description;
-                CmbMedicine.SelectedItem = ed.Recipe.MedicineId;
+                CmbMedicine.SelectedValue = ed.Recipe.MedicineId;
                 TxtInstructions.Text = ed.Recipe.Instruction;
                 PriorityNumberPicker.Value = ed.Referral.Priority;
                 TxtInformation.Text = ed.Referral.Info.ToString();
                 pdfFile = ed.Recipe.PdfDocument;
+                TxtPdfUploadbox.Text = medicine.FirstOrDefault(med => med.Id == ed.Recipe.MedicineId)?.Name;
             }
             catch (Exception)
             {
@@ -126,7 +130,7 @@ namespace ePregledi.WinUI.Forms.Examination
                     MessageBox.Show("Uspjesno sacuvano.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     MessageBox.Show("Doslo je do greske.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -232,6 +236,19 @@ namespace ePregledi.WinUI.Forms.Examination
             else
             {
                 errorProvider1.SetError(PriorityNumberPicker, null);
+            }
+        }
+
+        private void CmbMedicine_Validating(object sender, CancelEventArgs e)
+        {
+            if (CmbMedicine.SelectedIndex == 0 || CmbMedicine.SelectedIndex == -1)
+            {
+                errorProvider1.SetError(CmbMedicine, "You need to select option from combo box");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider1.SetError(CmbMedicine, null);
             }
         }
     }
