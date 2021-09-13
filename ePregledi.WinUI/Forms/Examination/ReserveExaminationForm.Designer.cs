@@ -46,6 +46,9 @@ namespace ePregledi.WinUI.Forms.Examination
             this.label6 = new System.Windows.Forms.Label();
             this.CmbRooms = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.LblAddAmublance = new System.Windows.Forms.LinkLabel();
+            this.LblDepartment = new System.Windows.Forms.LinkLabel();
+            this.LblRoom = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -152,6 +155,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.CmbAmbulance.Size = new System.Drawing.Size(278, 26);
             this.CmbAmbulance.TabIndex = 17;
             this.CmbAmbulance.SelectedIndexChanged += new System.EventHandler(this.CmbAmbulance_SelectedIndexChanged);
+            this.CmbAmbulance.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CmbAmbulance_MouseClick);
             this.CmbAmbulance.Validating += new System.ComponentModel.CancelEventHandler(this.CmbAmbulance_Validating);
             // 
             // label5
@@ -174,6 +178,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.CmbDepartment.Size = new System.Drawing.Size(278, 26);
             this.CmbDepartment.TabIndex = 19;
             this.CmbDepartment.SelectedIndexChanged += new System.EventHandler(this.CmbDepartment_SelectedIndexChanged);
+            this.CmbDepartment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CmbDepartment_MouseClick);
             this.CmbDepartment.Validating += new System.ComponentModel.CancelEventHandler(this.CmbDepartment_Validating);
             // 
             // label6
@@ -195,6 +200,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.CmbRooms.Name = "CmbRooms";
             this.CmbRooms.Size = new System.Drawing.Size(278, 26);
             this.CmbRooms.TabIndex = 21;
+            this.CmbRooms.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CmbRooms_MouseClick);
             this.CmbRooms.Validating += new System.ComponentModel.CancelEventHandler(this.CmbRooms_Validating);
             // 
             // label7
@@ -207,11 +213,50 @@ namespace ePregledi.WinUI.Forms.Examination
             this.label7.TabIndex = 20;
             this.label7.Text = "Soba";
             // 
+            // LblAddAmublance
+            // 
+            this.LblAddAmublance.AutoSize = true;
+            this.LblAddAmublance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAddAmublance.Location = new System.Drawing.Point(757, 64);
+            this.LblAddAmublance.Name = "LblAddAmublance";
+            this.LblAddAmublance.Size = new System.Drawing.Size(110, 16);
+            this.LblAddAmublance.TabIndex = 22;
+            this.LblAddAmublance.TabStop = true;
+            this.LblAddAmublance.Text = "Dodaj ambulantu";
+            this.LblAddAmublance.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblAddAmublance_LinkClicked);
+            // 
+            // LblDepartment
+            // 
+            this.LblDepartment.AutoSize = true;
+            this.LblDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblDepartment.Location = new System.Drawing.Point(760, 148);
+            this.LblDepartment.Name = "LblDepartment";
+            this.LblDepartment.Size = new System.Drawing.Size(78, 16);
+            this.LblDepartment.TabIndex = 23;
+            this.LblDepartment.TabStop = true;
+            this.LblDepartment.Text = "Dodaj odjel";
+            this.LblDepartment.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblDepartment_LinkClicked);
+            // 
+            // LblRoom
+            // 
+            this.LblRoom.AutoSize = true;
+            this.LblRoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblRoom.Location = new System.Drawing.Point(760, 236);
+            this.LblRoom.Name = "LblRoom";
+            this.LblRoom.Size = new System.Drawing.Size(78, 16);
+            this.LblRoom.TabIndex = 24;
+            this.LblRoom.TabStop = true;
+            this.LblRoom.Text = "Dodaj sobu";
+            this.LblRoom.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblRoom_LinkClicked);
+            // 
             // ReserveExaminationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 416);
+            this.Controls.Add(this.LblRoom);
+            this.Controls.Add(this.LblDepartment);
+            this.Controls.Add(this.LblAddAmublance);
             this.Controls.Add(this.CmbRooms);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.CmbDepartment);
@@ -255,5 +300,8 @@ namespace ePregledi.WinUI.Forms.Examination
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox CmbAmbulance;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel LblRoom;
+        private System.Windows.Forms.LinkLabel LblDepartment;
+        private System.Windows.Forms.LinkLabel LblAddAmublance;
     }
 }

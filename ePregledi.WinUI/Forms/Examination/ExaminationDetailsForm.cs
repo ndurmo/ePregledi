@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ePregledi.WinUI.Forms.Examination
@@ -86,7 +85,6 @@ namespace ePregledi.WinUI.Forms.Examination
                 PriorityNumberPicker.Value = ed.Referral.Priority;
                 TxtInformation.Text = ed.Referral.Info.ToString();
                 pdfFile = ed.Recipe.PdfDocument;
-                TxtPdfUploadbox.Text = medicine.FirstOrDefault(med => med.Id == ed.Recipe.MedicineId)?.Name;
             }
             catch (Exception)
             {
@@ -250,6 +248,22 @@ namespace ePregledi.WinUI.Forms.Examination
             {
                 errorProvider1.SetError(CmbMedicine, null);
             }
+        }
+
+        private void LblAddMedicine_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmMedicine frm = new FrmMedicine();
+            frm.Show();
+        }
+
+        private async void CmbMedicine_MouseClick(object sender, MouseEventArgs e)
+        {
+            var medicine = await _apiServiceExamination.Get<List<Medicine>>(null, "medicines");
+
+            medicine.Insert(0, new Medicine());
+            CmbMedicine.DataSource = medicine;
+            CmbMedicine.ValueMember = "Id";
+            CmbMedicine.DisplayMember = "Name";
         }
     }
 }
