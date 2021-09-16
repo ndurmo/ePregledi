@@ -61,7 +61,7 @@ namespace ePregledi.MobileApp.ViewModels
                     var rooms = await _apiServiceExamination.Get<List<Room>>(null, "rooms");
                     if (rooms.Count > 0)
                         foreach (var item in rooms.ToList())
-                            Rooms.Add(item);
+                            Rooms.Add(new RoomViewModel { Id = item.Id, RoomName = $"{item.Name} {item.Number}" });
                     else
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo soba", "OK");
                 }
@@ -160,8 +160,8 @@ namespace ePregledi.MobileApp.ViewModels
             set { SetProperty(ref _selectedDepartment, value); }
         }
 
-        Room _selectedRoom = null;
-        public Room SelectedRoom
+        RoomViewModel _selectedRoom = null;
+        public RoomViewModel SelectedRoom
         {
             get { return _selectedRoom; }
             set { SetProperty(ref _selectedRoom, value); }
@@ -193,6 +193,6 @@ namespace ePregledi.MobileApp.ViewModels
         public ObservableCollection<DoctorViewModel> Doctors { get; set; } = new ObservableCollection<DoctorViewModel>();
         public ObservableCollection<Ambulance> Ambulances { get; set; } = new ObservableCollection<Ambulance>();
         public ObservableCollection<Department> Departments { get; set; } = new ObservableCollection<Department>();
-        public ObservableCollection<Room> Rooms { get; set; } = new ObservableCollection<Room>();
+        public ObservableCollection<RoomViewModel> Rooms { get; set; } = new ObservableCollection<RoomViewModel>();
     }
 }
